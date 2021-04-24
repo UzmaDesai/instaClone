@@ -123,7 +123,6 @@ state = {
 
   uploadPost = () => {
     this.props.navigation.navigate("PostConfirm")
-
   }
 
   render(){

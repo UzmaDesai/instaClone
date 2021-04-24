@@ -50,48 +50,43 @@ const screenWidth = Dimensions.get('window').width
             } else if (response.customButton) {
                 console.log('User tapped custom button: ', response.customButton);
             } else {
-                const source = { uri: response.uri };
-                console.log(source);
-                //this.state.image = source
-                this.uploadProfilepic(source)
-                
-              }   
+              console.log("response =="+ response);
+              this.uploadProfilepic(response)    
+            }   
         }); 
-        
     }
 
     uploadProfilepic = async (source) => {
-      const url = await this.props.uploadPhoto(source.uri)
+      const url = await this.props.uploadPhoto(source)
       console.log("uploaded url = "+url);
       this.props.updatePhoto(url)
     }
      
  render(){
-    
      
      return (
         <View style = {{flex:1,alignItems:'center',justifyContent:'center'}}>
-            <Image source = {require('../../assets/backgrounds/background-white.jpg')} style = {{position:'absolute',zIndex:-1,width:screenWidth,height:screenheight+50}}/>
+          <Image source = {require('../../assets/backgrounds/background-white.jpg')} style = {{position:'absolute',zIndex:-1,width:screenWidth,height:screenheight+50}}/>
                
-               <View style = {{justifyContent:'center',alignItems:'center',bottom:100}}>
-               <Text style = {{fontWeight:'bold',fontSize:24,color:'black',margin:15}}>Choose a profile picture </Text>
-                {
-                    // (this.props.user.photo == undefined) ?
-                    //     <TouchableOpacity
-                    //         onPress = {() => this.openLibrary()}
-                    //     >
-                    //     <View style = {{width:screenWidth* 0.5,height:screenWidth * 0.5,borderRadius:screenWidth*0.25,backgroundColor:'beige'}}/>
-                    //      </TouchableOpacity>
-                    // :
-                    //     <TouchableOpacity
-                    //     onPress = {() => this.openLibrary()}
-                    //     >
-                            <Image 
-                            source = {require('../../assets/backgrounds/background-white.jpg')}
-                            style = {{width:screenWidth* 0.5,height:screenWidth * 0.5,borderRadius:screenWidth*0.25,backgroundColor:'beige'}}
-                            />
-                        //</TouchableOpacity>
-                }
+           <View style = {{justifyContent:'center',alignItems:'center',bottom:100}}>
+             <Text style = {{fontWeight:'bold',fontSize:24,color:'black',margin:15}}>Choose a profile picture </Text>
+              {
+               (this.props.user.photo == undefined) ?
+                  <TouchableOpacity
+                     onPress = {() => this.openLibrary()}
+                  >
+                  <View style = {{width:screenWidth* 0.5,height:screenWidth * 0.5,borderRadius : screenWidth * 0.25,backgroundColor:'beige'}}/>
+                  </TouchableOpacity>
+               :
+                 <TouchableOpacity
+                    onPress = {() => this.openLibrary()}
+                 >
+                     <Image 
+                      source = {{uri : this.props.user.photo}}
+                      style = {{width:screenWidth* 0.5,height:screenWidth * 0.5,borderRadius:screenWidth*0.25,backgroundColor:'beige'}}
+                      />
+                  </TouchableOpacity>
+              }
 
                 <TouchableOpacity style = {{margin:25,padding:20,borderRadius:14,backgroundColor:'rgba(0,0,0,0.05)',width:screenWidth*0.9,alignItems:'center'}}
                 onPress = {()=>{this.props.navigation.navigate('SignUp')}}
@@ -99,10 +94,8 @@ const screenWidth = Dimensions.get('window').width
                     <Text style = {{fontWeight:'bold',fontSize:24,color:'black'}}>Continue</Text>
                 </TouchableOpacity>
                </View>
-                
 
         </View>
- 
                 
      )
    }
@@ -114,8 +107,7 @@ const screenWidth = Dimensions.get('window').width
        alignItems : 'center',
      }
  }
- 
- )
+)
  
  const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({uploadPhoto,updatePhoto},dispatch)

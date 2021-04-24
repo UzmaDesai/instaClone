@@ -5,6 +5,7 @@ import { orderBy } from 'react-lodash'
 export const updateEmail = (input) => {
 	return {type:'UPDATE_EMAIL', payload: input}
 }
+
 export const updatePassword = (input) => {
 	return {type:'UPDATE_PASSWORD', payload: input}
 }
@@ -17,12 +18,11 @@ export const updatePhoto = (input) => {
 	return {type:'UPDATE_PHOTO', payload: input}
 }
 
-
 export const signup = () => {
     return async(dispatch,getState) => {
             try{
-                const { username,email, password } = getState().user
-                
+                const { username,email, password ,photo} = getState().user
+                console.log("getState().user = "+username,email, password ,photo) 
                 const response = await firebase.auth().createUserWithEmailAndPassword(email,password)
 
                 if(response.user.uid) {
@@ -33,7 +33,7 @@ export const signup = () => {
                         posts:[],
                         bio:'',
                         likes:0,
-                        photo:''
+                        photo:photo
                     }
                     await db.collection('users').doc(response.user.uid).set(user)
                     dispatch({type:'LOGIN',payload:user})
@@ -80,7 +80,5 @@ export const getUser = (uid) => {
         }catch(e){
             alert(e)
         }
-        
     }
-
 }

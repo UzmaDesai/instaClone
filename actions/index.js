@@ -36,43 +36,34 @@ import db from '../config/Firebase'
 export const uploadPhoto = (image) => {
      return async (dispatch) => {
         console.log("image in upload photo = "+image)
-         const { uri } = image;
-        //const filename = uri.substring(uri.lastIndexOf('/') + 1);
+        const { uri } = image;
         const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-        let RandomNumber = Math.floor(Math.random() * 1000000000) + 1  
-        let reference = firebase.storage().ref().child(`images/${RandomNumber}`);
-        console.log("Reference = +" + reference)
-        console.log("uploadUri = +" + image)
-
-
-
-        const response = await fetch(uri);
-        console.log("Response = +" + response)
-        const blob = await response.blob();
-        var newMetadata = {
+        
+        const response = await fetch(image.uri)
+          const blob = await response.blob();
+         var newMetadata = {
             cacheControl: 'public,max-age=300',
             contentType: 'image/jpeg'
         };
-        const task = reference.put(blob,newMetadata);
-  
-    try {
-      //await task;
-      const downloadURL = task.ref.getDownloadURL()
-      console.log("donwloaded url = "+downloadURL)
+
+      let RandomNumber = Math.floor(Math.random() * 1000000000) + 1  
+        
+      const uploadTask = await firebase
+                          .storage()
+                          .ref()
+                          .child(`images/${RandomNumber}`)
+                          .put(blob,newMetadata)
+
+         
+      const downloadURL = await uploadTask.ref.getDownloadURL()
       return downloadURL
-    } catch (e) {
-      console.error(e);
-    }
-   
 
     alert(
       'Photo uploaded!',
       'Your photo has been uploaded to Firebase Cloud Storage!'
     );
 
-        }
-
-    
-  };
+  }
+};
 
   

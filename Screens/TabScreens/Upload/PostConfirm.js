@@ -92,7 +92,6 @@ class PostConfirm extends React.Component {
                     <ScrollView
                     horizontal={true}
                     pagingEnabled={true} 
-                    
                     >
                         {
                         this.props.post.photos?.map((e)=>

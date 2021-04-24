@@ -24,9 +24,9 @@ import { combineReducers} from 'redux'
 const post = (state = {},action) => {
     switch (action.type) {
         case 'UPDATE_POST_NEXT_PHOTO' :
-            return {...state, photos:action.payload} //this.props.post.photos
+            return {...state, photos : action.payload} //this.props.post.photos
         case 'UPDATE_DESCRIPTION' :
-            return { ...state, description:action.payload} //this.props.post.description
+            return { ...state, description : action.payload} //this.props.post.description
         default :
             return state
     }

@@ -23,10 +23,9 @@ class Login extends React.Component {
                 }
             }
             else {
-               alert('hello')
                 this.props.navigation.navigate('Login')
-           }
-       })
+          }
+      })
     }
 
 

@@ -52,7 +52,7 @@ class MyStack extends React.Component{
 
 //EXPORTING USING REDUCERS.
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ uploadPost,getPosts }, dispatch)
+  return bindActionCreators({ uploadPost }, dispatch)
 }
 const mapStateToProps = (state) => {
   return{

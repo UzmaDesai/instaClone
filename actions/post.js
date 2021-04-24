@@ -2,11 +2,9 @@
 import * as firebase from 'firebase'
 import db from "../config/Firebase"
 
-
 export const updateDescription = (input) => {
 	return {type:'UPDATE_DESCRIPTION', payload: input}
 }
-
 
 export const updateNextPhoto = (input) => {
  return async (dispatch,getState) => {
